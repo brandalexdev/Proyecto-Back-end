@@ -1,0 +1,93 @@
+﻿@{
+    ViewData["Title"] = "Iniciar Sesión";
+}
+
+<style>
+    .login-page {
+        min-height: calc(100vh - 120px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .login-page::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBVb5QiFgPcedcoE6nEDq6bj9lDJp4208dhp5RfCJFO0taJIvaR8YxxOiTpEuISccyIkyPYhn1KEf9WA1Ln1n7muldu8vS6sCF0wl4nx36S7v8kWTNVjIoawRFIr9YD2b7UVJnklXbFlRm36EtmJS-r7IM8qHTU7FuykYuxw_80b2dLgpK7w6BlZAXQ2jnuSjmsVmv01ctX4JMDjoBsohGRuPhGhegJXg8tPHbMunmn7p2bAqArTaie');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.2;
+        filter: grayscale(1);
+        z-index: 0;
+    }
+
+    .login-card {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 520px;
+        margin: 24px;
+    }
+
+    @@media (max-width: 576px) {
+        .login-page {
+            min-height: calc(100vh - 96px);
+        }
+
+        .login-card {
+            margin: 16px;
+        }
+    }
+</style>
+
+<div class="login-page">
+    <div class="login-card bg-white border border-1 border-secondary-subtle rounded-4 shadow-lg p-4 p-md-5">
+        <div class="text-center mb-4">
+            <img alt="EventPro Enterprise Logo" class="mb-3" src="https://lh3.googleusercontent.com/aida/AEtjO1WS18-V3GMlfjiTCJktyMhP2yWtTF6_4B9H7Ed6u5zkm12biIP5I1MX6YnQogbPoH1fNEATMepYbr9ZqnHQ2dV2pEmQ_LzkxyyLIfoAoC6vSpYL-w6zWRDFHaf9fcoPTnuWGNQ64TgPc2hsjf5msNP2-dP3bzgaFAfB9IWFh-nsYLkemcDmcLuPXa67pbhQSLxrCa4G7x8BZ-Qi1JUbYUcFCpwg7aTHFH7eCnjRxI_VNKVtJS3ed7NFqg" style="width:64px;height:64px;object-fit:contain;" />
+            <h1 class="fw-bold mb-2">EventPro Enterprise</h1>
+            <p class="text-muted mb-0">Acceso seguro a su plataforma de gestión</p>
+        </div>
+
+        <form class="d-grid gap-3">
+            <div>
+                <label class="form-label fw-semibold" for="email">Correo Electrónico</label>
+                <div class="input-group">
+                    <span class="input-group-text">✉</span>
+                    <input class="form-control" id="email" name="email" placeholder="usuario@empresa.com" type="email" />
+                </div>
+            </div>
+
+            <div>
+                <label class="form-label fw-semibold" for="password">Contraseña</label>
+                <div class="input-group">
+                    <span class="input-group-text">🔒</span>
+                    <input class="form-control" id="password" name="password" placeholder="••••••••" type="password" />
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                <label class="form-check-label d-flex align-items-center gap-2">
+                    <input class="form-check-input m-0" type="checkbox" />
+                    <span>Recordarme</span>
+                </label>
+                <a href="#" class="text-decoration-none">¿Olvidaste tu contraseña?</a>
+            </div>
+
+            <button class="btn btn-primary btn-lg w-100" type="submit">Iniciar Sesión</button>
+        </form>
+
+        <div class="d-flex align-items-center gap-3 my-4">
+            <hr class="flex-grow-1" />
+            <span class="text-muted small text-nowrap">O continuar con</span>
+            <hr class="flex-grow-1" />
+        </div>
+
+        <div class="d-grid gap-2">
+            <button class="btn btn-outline-secondary" type="button">Iniciar sesión con Microsoft</button>
+            <button class="btn btn-outline-secondary" type="button">Iniciar sesión con Google</button>
+        </div>
+    </div>
+</div>
