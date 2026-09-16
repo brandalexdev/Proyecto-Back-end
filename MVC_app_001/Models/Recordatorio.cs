@@ -12,7 +12,7 @@ namespace MVC_app_001.Models
 
         public int EventoId { get; set; }
 
-        public Evento Evento { get; set; }
+        public Evento Evento { get; set; } = null!;
 
     }
 

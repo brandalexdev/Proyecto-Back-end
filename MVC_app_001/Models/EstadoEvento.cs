@@ -4,7 +4,7 @@ namespace MVC_app_001.Models
     {
     public int EstadoEventoId { get; set; }
 
-    public string Nombre { get; set; }
+    public string Nombre { get; set; } = string.Empty;
 
     public ICollection<Evento> Eventos { get; set; }
 
