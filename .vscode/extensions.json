@@ -1,0 +1,16 @@
+{
+  "recommendations": [
+    "ms-dotnettools.csdevkit",
+    "ms-dotnettools.csharp",
+    "ms-dotnettools.vscode-dotnet-runtime",
+    "isudox.vscode-jetbrains-keybindings",
+    "patcx.vscode-nuget-gallery",
+    "kreativ-software.csharpextensions",
+    "richardwillis.vscode-entity-framework",
+    "icsharpcode.ilspy-vscode",
+    "humao.rest-client",
+    "eamodio.gitlens",
+    "usernamehw.errorlens",
+    "qwtel.sqlite-viewer"
+  ]
+}
