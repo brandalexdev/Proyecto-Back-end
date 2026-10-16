@@ -25,6 +25,13 @@ public class LoginController : Controller
         return View("~/Views/Home/Index.cshtml");
     }
 
+    [HttpGet]
+    [AllowAnonymous]
+    public IActionResult Register()
+    {
+        return View("~/Views/Login/Register.cshtml");
+    }
+
     [HttpPost]
     [AllowAnonymous]
     [ValidateAntiForgeryToken]
@@ -67,6 +74,43 @@ public class LoginController : Controller
         return !string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl)
             ? Redirect(returnUrl)
             : RedirectToAction("Index", "Eventos")!;
+    }
+
+    [HttpPost]
+    [AllowAnonymous]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Register(LoginViewModel model, string nombre)
+    {
+        if (string.IsNullOrWhiteSpace(nombre))
+        {
+            ModelState.AddModelError(nameof(nombre), "El nombre es obligatorio.");
+        }
+
+        if (!ModelState.IsValid)
+        {
+            return View("~/Views/Login/Register.cshtml", model);
+        }
+
+        var correoExiste = await _context.Usuarios
+            .AnyAsync(u => u.Correo == model.Correo);
+
+        if (correoExiste)
+        {
+            ModelState.AddModelError(nameof(model.Correo), "Ese correo ya está registrado.");
+            return View("~/Views/Login/Register.cshtml", model);
+        }
+
+        _context.Usuarios.Add(new Usuario
+        {
+            Nombre = nombre.Trim(),
+            Correo = model.Correo.Trim(),
+            Contraseña = model.Contraseña,
+            FechaRegistro = DateTime.UtcNow
+        });
+
+        await _context.SaveChangesAsync();
+        TempData["RegisterSuccess"] = "Usuario creado correctamente. Ya puedes iniciar sesión.";
+        return RedirectToAction(nameof(Index));
     }
 
     [HttpPost]

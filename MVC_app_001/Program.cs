@@ -6,13 +6,11 @@ LoadEnvFile();
 
 var dbServer = GetRequiredEnvironmentVariable("DB_SERVER");
 var dbName = GetRequiredEnvironmentVariable("DB_NAME");
-var dbUser = GetRequiredEnvironmentVariable("DB_USER");
-var dbPassword = GetRequiredEnvironmentVariable("DB_PASSWORD");
 var dbTrustServerCertificate =
     Environment.GetEnvironmentVariable("DB_TRUST_SERVER_CERTIFICATE") ?? "True";
 
 var connectionString =
-    $"Server={dbServer};Database={dbName};User Id={dbUser};Password={dbPassword};TrustServerCertificate={dbTrustServerCertificate}";
+    $"Server={dbServer};Database={dbName};Integrated Security=True;TrustServerCertificate={dbTrustServerCertificate}";
 
 var builder = WebApplication.CreateBuilder(args);
 
