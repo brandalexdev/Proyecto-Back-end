@@ -1,0 +1,97 @@
+@model IEnumerable<MVC_app_001.Models.Evento>
+
+@{
+    ViewData["Title"] = "Eventos";
+}
+
+<style>
+    .events-shell { background: #faf8ff; border: 1px solid #e1e2ed; border-radius: 12px; }
+    .events-top { background: #ffffff; border-bottom: 1px solid #e1e2ed; }
+    .events-chip { font-size: 12px; padding: 2px 10px; border-radius: 999px; font-weight: 600; }
+    .events-chip-active { background: rgba(0,125,85,.15); color: #006242; }
+    .events-chip-upcoming { background: rgba(37,99,235,.12); color: #1d4ed8; }
+    .events-chip-completed { background: #e9ecef; color: #495057; }
+    .events-table th { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: #6c757d; }
+    .events-table td { vertical-align: middle; }
+</style>
+
+<section class="design-panel events-shell shadow-sm">
+    <div class="events-top p-4 p-md-5">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-end gap-3">
+            <div>
+                <h2 class="h4 mb-1">Event Explorer</h2>
+                <p class="text-muted mb-0">Gestiona y supervisa la creación y planificación de eventos.</p>
+            </div>
+            <div class="d-flex gap-2">
+                <a asp-action="Create" class="btn btn-primary">Crear Evento</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="p-4 p-md-5 pt-4">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0 events-table">
+                        <thead class="table-light">
+                        <tr>
+                            <th class="ps-4">ID</th>
+                            <th>Título</th>
+                            <th>Inicio</th>
+                            <th>Fin</th>
+                            <th>Lugar</th>
+                            <th>Usuario</th>
+                            <th>Categoría</th>
+                            <th>Estado</th>
+                            <th class="text-end pe-4">Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @if (!Model.Any())
+                        {
+                            <tr>
+                                <td colspan="9" class="text-center text-muted py-5">No hay eventos registrados.</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            @foreach (var item in Model)
+                            {
+                                var estadoNombre = item.EstadoEvento?.Nombre ?? "Sin estado";
+                                var estadoClase = estadoNombre.ToLowerInvariant() switch
+                                {
+                                    "activo" => "events-chip-active",
+                                    "active" => "events-chip-active",
+                                    "pendiente" => "events-chip-upcoming",
+                                    "pending" => "events-chip-upcoming",
+                                    "completado" => "events-chip-completed",
+                                    "completed" => "events-chip-completed",
+                                    _ => "events-chip-completed"
+                                };
+
+                                <tr>
+                                    <td class="ps-4 fw-semibold text-primary">@item.EventoId</td>
+                                    <td class="fw-semibold">@item.Titulo</td>
+                                    <td>@item.FechaInicio.ToString("dd MMM yyyy HH:mm")</td>
+                                    <td>@item.FechaFin.ToString("dd MMM yyyy HH:mm")</td>
+                                    <td>@item.Lugar</td>
+                                    <td>@(item.Usuario?.Nombre ?? "Sin usuario")</td>
+                                    <td>@(item.Categoria?.Nombre ?? "Sin categoría")</td>
+                                    <td>
+                                        <span class="events-chip @estadoClase">@estadoNombre</span>
+                                    </td>
+                                    <td class="text-end pe-4">
+                                        <a asp-action="Details" asp-route-id="@item.EventoId" class="btn btn-sm btn-outline-secondary">Ver</a>
+                                        <a asp-action="Edit" asp-route-id="@item.EventoId" class="btn btn-sm btn-outline-primary">Editar</a>
+                                        <a asp-action="Delete" asp-route-id="@item.EventoId" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

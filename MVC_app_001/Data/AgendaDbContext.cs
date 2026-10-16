@@ -12,6 +12,7 @@ namespace MVC_app_001.Data
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<MVC_app_001.Models.Recordatorio> Recordatorio { get; set; } = default!;
+        public DbSet<MVC_app_001.Models.Auditoria> Auditoria { get; set; } = default!;
     }
 }
 

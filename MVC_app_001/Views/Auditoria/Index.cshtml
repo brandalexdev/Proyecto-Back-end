@@ -1,0 +1,41 @@
+@model IEnumerable<MVC_app_001.Models.Auditoria>
+
+@{
+    ViewData["Title"] = "Auditoría";
+}
+
+<div class="page-heading">
+    <div>
+        <h1>Registro de auditoría</h1>
+        <p>Historial de acciones y cambios realizados en la plataforma.</p>
+    </div>
+    <a asp-action="Create" class="btn btn-primary">＋ Registrar acción</a>
+</div>
+
+<section class="design-panel p-3 p-md-4">
+    <div class="table-responsive">
+        <table class="table design-table">
+            <thead><tr><th>Usuario</th><th>Acción</th><th>Fecha y hora</th><th>Detalles</th><th>ID usuario</th><th></th></tr></thead>
+            <tbody>
+            @if (!Model.Any())
+            {
+                <tr><td colspan="6"><div class="empty-state">No hay registros de auditoría.</div></td></tr>
+            }
+            else
+            {
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="fw-semibold">@item.Usuario</td>
+                        <td><span class="status-pill">@item.Accion</span></td>
+                        <td>@item.FechaHora.ToString("dd MMM yyyy HH:mm")</td>
+                        <td>@item.Detalles</td>
+                        <td>@item.UsuarioId</td>
+                        <td class="text-end text-nowrap"><a asp-action="Details" asp-route-id="@item.AuditoriaId" class="btn btn-sm btn-outline-secondary">Ver</a> <a asp-action="Delete" asp-route-id="@item.AuditoriaId" class="btn btn-sm btn-outline-danger">Eliminar</a></td>
+                    </tr>
+                }
+            }
+            </tbody>
+        </table>
+    </div>
+</section>

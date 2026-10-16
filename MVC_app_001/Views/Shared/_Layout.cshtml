@@ -1,55 +1,50 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@{
+    var controller = ViewContext.RouteData.Values["controller"]?.ToString();
+    var action = ViewContext.RouteData.Values["action"]?.ToString();
+    var isLogin = controller == "Home" && action == "Index";
+}
+<!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>@ViewData["Title"] - Agenda inteligente</title>
+    <title>@ViewData["Title"] - EventPro Enterprise</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/MVC_app_001.styles.css" asp-append-version="true"/>
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container-fluid">
-            <a   class="navbar-brand" style="text-align: right" asp-area="" asp-controller="Home" asp-action="Index">AgendaInteligente</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Inicio de sesion</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Eventos" asp-action="Index">Eventos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Categoria" asp-action="Index">Categoria</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Recordatorio" asp-action="Index">Recordatorio</a>
-                    </li>
-
-                </ul>
-
-            </div>
+@if (isLogin)
+{
+    @RenderBody()
+}
+else
+{
+    <div class="app-shell">
+        <aside class="app-sidebar">
+            <a class="brand-lockup" asp-controller="Home" asp-action="Index">
+                <span class="brand-mark">EP</span>
+                <span><strong>EventPro</strong><small>Management Suite</small></span>
+            </a>
+            <nav class="sidebar-nav" aria-label="Navegación principal">
+                <a class="@(controller == "Home" ? "active" : "")" asp-controller="Home" asp-action="Index"><span>▦</span> Dashboard</a>
+                <a class="@(controller == "Eventos" ? "active" : "")" asp-controller="Eventos" asp-action="Index"><span>◫</span> Eventos</a>
+                <a class="@(controller == "Categoria" ? "active" : "")" asp-controller="Categoria" asp-action="Index"><span>▤</span> Planificación</a>
+                <a class="@(controller == "Auditoria" ? "active" : "")" asp-controller="Auditoria" asp-action="Index"><span>◷</span> Auditoría</a>
+                <a class="@(controller == "Recordatorio" ? "active" : "")" asp-controller="Recordatorio" asp-action="Index"><span>◌</span> Recordatorios</a>
+            </nav>
+            <a class="create-event-button" asp-controller="Eventos" asp-action="Create">＋ Crear evento</a>
+        </aside>
+        <div class="app-content">
+            <header class="topbar">
+                <div class="search-box">⌕ <input placeholder="Buscar eventos, recursos o usuarios..." aria-label="Buscar" /></div>
+                <div class="topbar-actions"><button type="button" aria-label="Notificaciones">♢</button><button type="button" aria-label="Configuración">⚙</button><span class="avatar">EP</span></div>
+            </header>
+            <main class="page-content" role="main">@RenderBody()</main>
         </div>
-    </nav>
-</header>
-<div class="container">
-    <main role="main" class="pb-3">
-        @RenderBody()
-    </main>
-</div>
-
-<footer class="border-top footer text-muted">
-    <div class="container">
-        &copy; 2026 - MVC_app_001 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
     </div>
-</footer>
+}
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>

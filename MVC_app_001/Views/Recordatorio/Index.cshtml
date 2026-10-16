@@ -1,0 +1,40 @@
+@model IEnumerable<MVC_app_001.Models.Recordatorio>
+
+@{
+    ViewData["Title"] = "Recordatorios";
+}
+
+<div class="page-heading">
+    <div>
+        <h1>Recordatorios</h1>
+        <p>Supervisa las notificaciones programadas para tus eventos.</p>
+    </div>
+    <a asp-action="Create" class="btn btn-primary">＋ Nuevo recordatorio</a>
+</div>
+
+<section class="design-panel p-3 p-md-4">
+    <div class="table-responsive">
+        <table class="table design-table">
+            <thead><tr><th>Fecha programada</th><th>Mensaje</th><th>Estado</th><th>Evento</th><th class="text-end">Acciones</th></tr></thead>
+            <tbody>
+            @if (!Model.Any())
+            {
+                <tr><td colspan="5"><div class="empty-state">No hay recordatorios programados.</div></td></tr>
+            }
+            else
+            {
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="fw-semibold">@item.FechaRecordatorio.ToString("dd MMM yyyy HH:mm")</td>
+                        <td>@item.mensaje</td>
+                        <td><span class="status-pill">@(item.Enviado ? "Enviado" : "Pendiente")</span></td>
+                        <td>@(item.Evento?.Lugar ?? "Sin evento")</td>
+                        <td class="text-end text-nowrap"><a asp-action="Edit" asp-route-id="@item.recordatorioId" class="btn btn-sm btn-outline-primary">Editar</a> <a asp-action="Delete" asp-route-id="@item.recordatorioId" class="btn btn-sm btn-outline-danger">Eliminar</a></td>
+                    </tr>
+                }
+            }
+            </tbody>
+        </table>
+    </div>
+</section>
