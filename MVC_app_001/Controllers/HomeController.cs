@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MVC_app_001.Models;
 
@@ -13,9 +14,11 @@ public class HomeController : Controller
         _logger = logger;
     }
 
+    [HttpGet]
+    [AllowAnonymous]
     public IActionResult Index()
     {
-        return View();
+        return RedirectToAction("Index", "Login");
     }
 
     public IActionResult Privacy()

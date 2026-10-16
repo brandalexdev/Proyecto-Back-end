@@ -1,4 +1,6 @@
-﻿@{
+@model MVC_app_001.Models.LoginViewModel
+
+@{
     ViewData["Title"] = "Iniciar Sesión";
 }
 
@@ -51,12 +53,14 @@
             <p class="text-muted mb-0">Acceso seguro a su plataforma de gestión</p>
         </div>
 
-        <form class="d-grid gap-3">
+        <form asp-controller="Login" asp-action="Authenticate" method="post" class="d-grid gap-3">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div>
                 <label class="form-label fw-semibold" for="email">Correo Electrónico</label>
                 <div class="input-group">
                     <span class="input-group-text">✉</span>
-                    <input class="form-control" id="email" name="email" placeholder="usuario@empresa.com" type="email" />
+                    <input class="form-control" id="email" name="Correo" placeholder="usuario@empresa.com" type="email" />
                 </div>
             </div>
 
@@ -64,13 +68,13 @@
                 <label class="form-label fw-semibold" for="password">Contraseña</label>
                 <div class="input-group">
                     <span class="input-group-text">🔒</span>
-                    <input class="form-control" id="password" name="password" placeholder="••••••••" type="password" />
+                    <input class="form-control" id="password" name="Contraseña" placeholder="••••••••" type="password" />
                 </div>
             </div>
 
             <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
                 <label class="form-check-label d-flex align-items-center gap-2">
-                    <input class="form-check-input m-0" type="checkbox" />
+                    <input class="form-check-input m-0" name="Recordarme" type="checkbox" value="true" />
                     <span>Recordarme</span>
                 </label>
                 <a href="#" class="text-decoration-none">¿Olvidaste tu contraseña?</a>
