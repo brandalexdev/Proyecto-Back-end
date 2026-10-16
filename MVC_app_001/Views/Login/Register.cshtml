@@ -1,0 +1,93 @@
+@model MVC_app_001.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Crear usuario";
+}
+
+<style>
+    .login-page {
+        min-height: calc(100vh - 120px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .login-page::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBVb5QiFgPcedcoE6nEDq6bj9lDJp4208dhp5RfCJFO0taJIvaR8YxxOiTpEuISccyIkyPYhn1KEf9WA1Ln1n7muldu8vS6sCF0wl4nx36S7v8kWTNVjIoawRFIr9YD2b7UVJnklXbFlRm36EtmJS-r7IM8qHTU7FuykYuxw_80b2dLgpK7w6BlZAXQ2jnuSjmsVmv01ctX4JMDjoBsohGRuPhGhegJXg8tPHbMunmn7p2bAqArTaie');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.2;
+        filter: grayscale(1);
+        z-index: 0;
+    }
+
+    .login-card {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 520px;
+        margin: 24px;
+    }
+
+    @@media (max-width: 576px) {
+        .login-page {
+            min-height: calc(100vh - 96px);
+        }
+
+        .login-card {
+            margin: 16px;
+        }
+    }
+</style>
+
+<div class="login-page">
+    <div class="login-card bg-white border border-1 border-secondary-subtle rounded-4 shadow-lg p-4 p-md-5">
+        <div class="text-center mb-4">
+            <img alt="EventPro Enterprise Logo" class="mb-3" src="https://lh3.googleusercontent.com/aida/AEtjO1WS18-V3GMlfjiTCJktyMhP2yWtTF6_4B9H7Ed6u5zkm12biIP5I1MX6YnQogbPoH1fNEATMepYbr9ZqnHQ2dV2pEmQ_LzkxyyLIfoAoC6vSpYL-w6zWRDFHaf9fcoPTnuWGNQ64TgPc2hsjf5msNP2-dP3bzgaFAfB9IWFh-nsYLkemcDmcLuPXa67pbhQSLxrCa4G7x8BZ-Qi1JUbYUcFCpwg7aTHFH7eCnjRxI_VNKVtJS3ed7NFqg" style="width:64px;height:64px;object-fit:contain;" />
+            <h1 class="fw-bold mb-2">Crear usuario</h1>
+            <p class="text-muted mb-0">Registra tu cuenta para acceder a EventPro</p>
+        </div>
+
+        <form asp-controller="Login" asp-action="Register" method="post" class="d-grid gap-3">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div>
+                <label class="form-label fw-semibold" for="nombre">Nombre</label>
+                <div class="input-group">
+                    <span class="input-group-text">👤</span>
+                    <input class="form-control" id="nombre" name="nombre" placeholder="Tu nombre" required />
+                </div>
+            </div>
+
+            <div>
+                <label asp-for="Correo" class="form-label fw-semibold">Correo Electrónico</label>
+                <div class="input-group">
+                    <span class="input-group-text">✉</span>
+                    <input asp-for="Correo" class="form-control" placeholder="usuario@empresa.com" />
+                </div>
+                <span asp-validation-for="Correo" class="text-danger"></span>
+            </div>
+
+            <div>
+                <label asp-for="Contraseña" class="form-label fw-semibold"></label>
+                <div class="input-group">
+                    <span class="input-group-text">🔒</span>
+                    <input asp-for="Contraseña" class="form-control" placeholder="••••••••" />
+                </div>
+                <span asp-validation-for="Contraseña" class="text-danger"></span>
+            </div>
+
+            <button class="btn btn-primary btn-lg w-100" type="submit">Registrarme</button>
+        </form>
+
+        <div class="text-center mt-3">
+            <a asp-controller="Login" asp-action="Index" class="text-decoration-none">Volver al inicio de sesión</a>
+        </div>
+    </div>
+</div>
