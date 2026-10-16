@@ -10,9 +10,6 @@ namespace MVC_app_001.Models
         [Required] public string Contraseña { get; set; } = string.Empty;
         public DateTime FechaRegistro { get; set; }
 
-        public virtual ICollection<Evento> Eventos { get; set; }
-            = new List<Evento>();
-
        // public virtual ICollection<Auditoria> Auditorias { get; set; }
            // = new List<Auditoria>();
     }

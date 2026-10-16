@@ -108,7 +108,7 @@ namespace MVC_app_001.Migrations
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
 
-                    b.Property<int>("EstadoEventoId")
+                    b.Property<int?>("EstadoEventoId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("FechaFin")
@@ -126,16 +126,11 @@ namespace MVC_app_001.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
-
                     b.HasKey("EventoId");
 
                     b.HasIndex("CategoriaId");
 
                     b.HasIndex("EstadoEventoId");
-
-                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Eventos");
                 });
@@ -206,21 +201,11 @@ namespace MVC_app_001.Migrations
 
                     b.HasOne("MVC_app_001.Models.EstadoEvento", "EstadoEvento")
                         .WithMany("Eventos")
-                        .HasForeignKey("EstadoEventoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MVC_app_001.Models.Usuario", "Usuario")
-                        .WithMany("Eventos")
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EstadoEventoId");
 
                     b.Navigation("Categoria");
 
                     b.Navigation("EstadoEvento");
-
-                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("MVC_app_001.Models.Recordatorio", b =>
@@ -240,11 +225,6 @@ namespace MVC_app_001.Migrations
                 });
 
             modelBuilder.Entity("MVC_app_001.Models.EstadoEvento", b =>
-                {
-                    b.Navigation("Eventos");
-                });
-
-            modelBuilder.Entity("MVC_app_001.Models.Usuario", b =>
                 {
                     b.Navigation("Eventos");
                 });

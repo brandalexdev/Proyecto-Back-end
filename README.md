@@ -206,6 +206,39 @@ Después del login, la aplicación muestra el administrador de eventos.
 
 ## 8. Actualizar librerías y paquetes
 
+## 8. API REST JSON
+
+La aplicación también expone operaciones CRUD mediante controladores
+`[ApiController]` y respuestas JSON. Las rutas disponibles son:
+
+| Recurso | Ruta |
+|---|---|
+| Eventos | `/api/eventos` |
+| Recordatorios | `/api/recordatorios` |
+| Usuarios | `/api/usuarios` |
+| Auditorías | `/api/auditorias` |
+
+Cada recurso admite `GET` para listar, `GET /{id}` para consultar por
+identificador, `POST` para crear, `PUT /{id}` para modificar y
+`DELETE /{id}` para eliminar. Los eventos no requieren usuario y su estado es
+opcional. Las respuestas de usuarios nunca incluyen la contraseña.
+
+Ejemplo de creación de evento:
+
+```json
+{
+  "titulo": "Reunión de proyecto",
+  "descripcion": "Revisión semanal",
+  "fechaInicio": "2026-11-01T10:00:00",
+  "fechaFin": "2026-11-01T11:00:00",
+  "lugar": "Sala 1",
+  "categoriaId": 1,
+  "estadoEventoId": null
+}
+```
+
+## 9. Actualizar librerías y paquetes
+
 Los paquetes del proyecto se encuentran en:
 
 `MVC_app_001/MVC_app_001.csproj`
@@ -245,7 +278,7 @@ No actualizar paquetes individualmente a versiones incompatibles. Los paquetes
 de Entity Framework Core deben mantenerse en la misma versión principal y,
 preferentemente, en la misma versión exacta.
 
-## 9. Actualizar la base de datos después de cambiar modelos
+## 10. Actualizar la base de datos después de cambiar modelos
 
 Cuando se modifique una entidad en `Models`, crear una nueva migración:
 
@@ -265,5 +298,3 @@ datos. Para revisar las migraciones disponibles:
 ```bash
 dotnet ef migrations list --project .\MVC_app_001\MVC_app_001.csproj --startup-project .\MVC_app_001\MVC_app_001.csproj
 ```
-
-

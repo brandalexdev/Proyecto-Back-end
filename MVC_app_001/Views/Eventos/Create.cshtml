@@ -38,12 +38,15 @@
                 <span asp-validation-for="Lugar" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UsuarioId" class="control-label"></label>
-                <select asp-for="UsuarioId" class ="form-control" asp-items="ViewBag.UsuarioId"></select>
-            </div>
-            <div class="form-group">
                 <label asp-for="CategoriaId" class="control-label"></label>
                 <select asp-for="CategoriaId" class ="form-control" asp-items="ViewBag.CategoriaId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="EstadoEventoId" class="control-label">Estado (opcional)</label>
+                <select asp-for="EstadoEventoId" class="form-control"
+                        asp-items="@(new SelectList(ViewBag.EstadoEventoId, "EstadoEventoId", "Nombre"))">
+                    <option value="">Sin estado</option>
+                </select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -55,4 +58,3 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-

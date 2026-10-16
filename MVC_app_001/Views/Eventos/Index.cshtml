@@ -40,7 +40,6 @@
                             <th>Inicio</th>
                             <th>Fin</th>
                             <th>Lugar</th>
-                            <th>Usuario</th>
                             <th>Categoría</th>
                             <th>Estado</th>
                             <th class="text-end pe-4">Acciones</th>
@@ -50,7 +49,7 @@
                         @if (!Model.Any())
                         {
                             <tr>
-                                <td colspan="9" class="text-center text-muted py-5">No hay eventos registrados.</td>
+                                <td colspan="8" class="text-center text-muted py-5">No hay eventos registrados.</td>
                             </tr>
                         }
                         else
@@ -75,7 +74,6 @@
                                     <td>@item.FechaInicio.ToString("dd MMM yyyy HH:mm")</td>
                                     <td>@item.FechaFin.ToString("dd MMM yyyy HH:mm")</td>
                                     <td>@item.Lugar</td>
-                                    <td>@(item.Usuario?.Nombre ?? "Sin usuario")</td>
                                     <td>@(item.Categoria?.Nombre ?? "Sin categoría")</td>
                                     <td>
                                         <span class="events-chip @estadoClase">@estadoNombre</span>

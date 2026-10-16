@@ -22,7 +22,7 @@ namespace MVC_app_001.Controllers
         // GET: Eventos
         public async Task<IActionResult> Index()
         {
-            var agendaDbContext = _context.Eventos.Include(e => e.Categoria).Include(e => e.Usuario);
+            var agendaDbContext = _context.Eventos.Include(e => e.Categoria).Include(e => e.EstadoEvento);
             return View(await agendaDbContext.ToListAsync());
         }
 
@@ -36,7 +36,7 @@ namespace MVC_app_001.Controllers
 
             var evento = await _context.Eventos
                 .Include(e => e.Categoria)
-                .Include(e => e.Usuario)
+                .Include(e => e.EstadoEvento)
                 .FirstOrDefaultAsync(m => m.EventoId == id);
             if (evento == null)
             {
@@ -50,7 +50,7 @@ namespace MVC_app_001.Controllers
         public IActionResult Create()
         {
             ViewData["CategoriaId"] = new SelectList(_context.Categorias, "CategoriaId", "Nombre");
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "UsuarioId", "Contraseña");
+            ViewData["EstadoEventoId"] = new SelectList(_context.Set<EstadoEvento>(), "EstadoEventoId", "Nombre");
             return View();
         }
 
@@ -59,7 +59,7 @@ namespace MVC_app_001.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EventoId,Titulo,Descripcion,FechaInicio,FechaFin,Lugar,UsuarioId,CategoriaId")] Evento evento)
+        public async Task<IActionResult> Create([Bind("EventoId,Titulo,Descripcion,FechaInicio,FechaFin,Lugar,CategoriaId,EstadoEventoId")] Evento evento)
         {
             if (ModelState.IsValid)
             {
@@ -68,7 +68,7 @@ namespace MVC_app_001.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CategoriaId"] = new SelectList(_context.Categorias, "CategoriaId", "Nombre", evento.CategoriaId);
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "UsuarioId", "Contraseña", evento.UsuarioId);
+            ViewData["EstadoEventoId"] = new SelectList(_context.Set<EstadoEvento>(), "EstadoEventoId", "Nombre", evento.EstadoEventoId);
             return View(evento);
         }
 
@@ -86,7 +86,7 @@ namespace MVC_app_001.Controllers
                 return NotFound();
             }
             ViewData["CategoriaId"] = new SelectList(_context.Categorias, "CategoriaId", "Nombre", evento.CategoriaId);
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "UsuarioId", "Contraseña", evento.UsuarioId);
+            ViewData["EstadoEventoId"] = new SelectList(_context.Set<EstadoEvento>(), "EstadoEventoId", "Nombre", evento.EstadoEventoId);
             return View(evento);
         }
 
@@ -95,7 +95,7 @@ namespace MVC_app_001.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EventoId,Titulo,Descripcion,FechaInicio,FechaFin,Lugar,UsuarioId,CategoriaId")] Evento evento)
+        public async Task<IActionResult> Edit(int id, [Bind("EventoId,Titulo,Descripcion,FechaInicio,FechaFin,Lugar,CategoriaId,EstadoEventoId")] Evento evento)
         {
             if (id != evento.EventoId)
             {
@@ -123,7 +123,6 @@ namespace MVC_app_001.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CategoriaId"] = new SelectList(_context.Categorias, "CategoriaId", "Nombre", evento.CategoriaId);
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "UsuarioId", "Contraseña", evento.UsuarioId);
             return View(evento);
         }
 
@@ -137,7 +136,7 @@ namespace MVC_app_001.Controllers
 
             var evento = await _context.Eventos
                 .Include(e => e.Categoria)
-                .Include(e => e.Usuario)
+                .Include(e => e.EstadoEvento)
                 .FirstOrDefaultAsync(m => m.EventoId == id);
             if (evento == null)
             {
